@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     27244,        625]
-NotebookOptionsPosition[     25195,        583]
-NotebookOutlinePosition[     25569,        599]
-CellTagsIndexPosition[     25526,        596]
+NotebookDataLength[     55346,       1306]
+NotebookOptionsPosition[     49298,       1203]
+NotebookOutlinePosition[     49682,       1220]
+CellTagsIndexPosition[     49639,       1217]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -437,9 +437,9 @@ Cell[BoxData[
          Rational[2, 3], 0]]], Manipulate`Dump`ThisIsNotAControl}, {
       Hold[$CellContext`y$$], "01111111100000000000000000000000", 
       InputField[#, String, FieldSize -> {32, 1}]& }}, Typeset`size$$ = {
-    802., {46., 53.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = False, $CellContext`x$4918$$ = 
-    0, $CellContext`y$4919$$ = 0}, 
+    848., {50.41754150390625, 57.58245849609375}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`x$4918$$ = 0, $CellContext`y$4919$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      2, StandardForm, 
       "Variables" :> {$CellContext`x$$ = -1.234, $CellContext`y$$ = 
@@ -470,7 +470,7 @@ Cell[BoxData[
          "01111111100000000000000000000000", 
          InputField[#, String, FieldSize -> {32, 1}]& }}, "Options" :> {}, 
       "DefaultOptions" :> {}],
-     ImageSizeCache->{863., {121., 128.}},
+     ImageSizeCache->{903., {117., 124.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -557,34 +557,655 @@ Cell[BoxData[
 
 Cell[CellGroupData[{
 
-Cell[BoxData[
+Cell[BoxData[{
+ RowBox[{"ExportString", "[", 
+  RowBox[{"Indeterminate", ",", "\"\<Real32\>\"", ",", 
+   RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}], "\[IndentingNewLine]", 
  RowBox[{"ImportString", "[", 
-  RowBox[{"ExportString", "[", 
-   RowBox[{"Indeterminate", ",", "\"\<Real32\>\"", ",", 
-    RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.78236384810312*^9, 3.782363928257228*^9}},
- CellLabel->"In[22]:=",ExpressionUUID->"ac7ee4c8-e3d0-4d9c-9359-e227c5606a8b"],
+  RowBox[{
+   RowBox[{"ExportString", "[", 
+    RowBox[{"Indeterminate", ",", "\"\<Real32\>\"", ",", 
+     RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}], ",", "\"\<Real32\>\"",
+    ",", 
+   RowBox[{"ByteOrdering", "\[Rule]", "1"}]}], "]"}]}], "Input",
+ CellLabel->
+  "In[270]:=",ExpressionUUID->"ac7ee4c8-e3d0-4d9c-9359-e227c5606a8b"],
+
+Cell[BoxData["\<\"\[YDoubleDot]\[CapitalAGrave]\.00\.00\"\>"], "Output",
+ CellLabel->
+  "Out[270]=",ExpressionUUID->"a060c628-6270-4461-a324-526bd19f6722"],
+
+Cell[BoxData[
+ RowBox[{"{", "Indeterminate", "}"}]], "Output",
+ CellLabel->
+  "Out[271]=",ExpressionUUID->"19c49434-6df1-4964-af99-0d9e23ac2f39"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+\:0424\:0443\:043d\:043a\:0446\:0438\:044f, \:043f\:0435\:0440\:0435\:0432\
+\:043e\:0434\:044f\:0449\:0430\:044f \:043e\:0431\:044a\:0435\:043a\:0442 \
+Mathematica \:0432 \:0431\:0438\:0442\:043e\:0432\:0443\:044e \:0441\:0442\
+\:0440\:043e\:043a\:0443 \:0444\:043e\:0440\:043c\:0430\:0442\:0430 IEEE-754 \
+single precision (\[OpenCurlyDoubleQuote]Real32\[CloseCurlyDoubleQuote])\
+\>", "Section",ExpressionUUID->"61e1a160-ea7a-480b-a9a2-88b8afe5f52c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"realNumberToBitString", "[", "Infinity", "]"}], ":=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"{", 
+        RowBox[{"\"\<0\>\"", ",", 
+         RowBox[{"ConstantArray", "[", 
+          RowBox[{"\"\<1\>\"", ",", "8"}], "]"}], ",", 
+         RowBox[{"ConstantArray", "[", 
+          RowBox[{"\"\<0\>\"", ",", "23"}], "]"}]}], "}"}], "]"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"realNumberToBitString", "[", 
+       RowBox[{"-", "Infinity"}], "]"}]}], ":=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{"\"\<1\>\"", ",", 
+          RowBox[{"ConstantArray", "[", 
+           RowBox[{"\"\<1\>\"", ",", "8"}], "]"}], ",", 
+          RowBox[{"ConstantArray", "[", 
+           RowBox[{"\"\<0\>\"", ",", "23"}], "]"}]}], "}"}], "]"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"realNumberToBitString", "[", "Indeterminate", "]"}]}], ":=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"StringJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"\"\<0\>\"", ",", 
+           RowBox[{"ConstantArray", "[", 
+            RowBox[{"\"\<1\>\"", ",", "8"}], "]"}], ",", "\"\<1\>\"", ",", 
+           RowBox[{"ConstantArray", "[", 
+            RowBox[{"\"\<0\>\"", ",", "22"}], "]"}]}], "}"}], "]"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"realNumberToBitString", "[", "0", "]"}]}], ":=", 
+       RowBox[{"ConstantArray", "[", 
+        RowBox[{"\"\<0\>\"", ",", "32"}], "]"}]}]}]}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"realNumberToBitString", "[", "x_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Composition", "[", "\[IndentingNewLine]", 
+     RowBox[{"StringJoin", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{"ToString", ",", "#"}], "]"}], "&"}], ",", 
+      "\[IndentingNewLine]", "Flatten", ",", "\[IndentingNewLine]", "Reverse",
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"IntegerDigits", "[", 
+        RowBox[{"#", ",", "2", ",", "8"}], "]"}], "&"}], ",", 
+      "\[IndentingNewLine]", "Normal", ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"ExportByteArray", "[", 
+        RowBox[{"#", ",", "\"\<Real32\>\""}], "]"}], "&"}]}], 
+     "\[IndentingNewLine]", "]"}], "[", "x", "]"}]}]}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"24855218-648d-4cc1-ad95-e0851704527e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+\:0424\:0443\:043d\:043a\:0446\:0438\:044f, \:043f\:0435\:0440\:0435\:0432\
+\:043e\:0434\:044f\:0449\:0430\:044f \:0431\:0438\:0442\:043e\:0432\:0443\
+\:044e \:0441\:0442\:0440\:043e\:043a\:0443 \:0444\:043e\:0440\:043c\:0430\
+\:0442\:0430 IEEE-754 single precision \:0432 \:043e\:0431\:044a\:0435\:043a\
+\:0442 Mathematica\
+\>", "Section",ExpressionUUID->"022b0af0-3548-451b-be24-11a95808e630"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bitStringToRealNumber", "[", 
+   RowBox[{"bitString_String", "/;", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringLength", "[", "bitString", "]"}], "\[Equal]", "32"}], "&&", 
+      RowBox[{"StringMatchQ", "[", 
+       RowBox[{"bitString", ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"\"\<0\>\"", "|", "\"\<1\>\""}], ")"}], ".."}]}], "]"}]}], 
+     ")"}]}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{"Composition", "[", "\[IndentingNewLine]", 
+    RowBox[{"First", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ImportByteArray", "[", 
+       RowBox[{"#", ",", "\"\<Real32\>\""}], "]"}], "&"}], ",", 
+     "\[IndentingNewLine]", "ByteArray", ",", "\[IndentingNewLine]", 
+     "Reverse", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Map", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"FromDigits", "[", 
+          RowBox[{"#", ",", "2"}], "]"}], "&"}], ",", "#"}], "]"}], "&"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"StringPartition", "[", 
+       RowBox[{"#", ",", "8"}], "]"}], "&"}]}], "\[IndentingNewLine]", "]"}], 
+   "[", "bitString", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"bitStringToRealNumber", "[", "___", "]"}], ":=", "$Failed"}], 
+   "*)"}]}]}], "Input",
+ CellLabel->"In[2]:=",ExpressionUUID->"741bfecb-462e-4b16-8099-e7d5f11fbbf0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\:041f\:0420\:0438\:043c\:0435\:0440\:044b \:0438\:0441\:043f\:043e\
+\:043b\:044c\:0437\:043e\:0432\:0430\:043d\:0438\:044f \:0444\:0443\:043d\
+\:043a\:0446\:0438\:0439 \:043a\:043e\:043d\:0432\:0435\:0440\:0442\:0430\
+\:0446\:0438\:0438 \:0438 \:0447\:0435\:0440\:043d\:043e\:0432\:0438\:043a\
+\:0438", "Section",ExpressionUUID->"81a3f302-0394-485d-bc77-b06a6f4e9797"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"inputBitString", "=", 
+  "\"\<00000000100000000000000000000000x\>\""}], "\[IndentingNewLine]", 
+ RowBox[{"realFromBitString", "=", 
+  RowBox[{
+  "bitStringToRealNumber", "[", "inputBitString", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"InputForm", "[", "realFromBitString", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"outputBitSring", "=", 
+  RowBox[{
+  "realNumberToBitString", "[", "realFromBitString", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"inputBitString", "\[Equal]", 
+  "outputBitSring"}], "\[IndentingNewLine]", 
+ RowBox[{"inputBitString", "===", "outputBitSring"}]}], "Input",
+ CellLabel->"In[12]:=",ExpressionUUID->"f20578a0-2a33-43e6-84da-8d710369c052"],
+
+Cell[BoxData["\<\"00000000100000000000000000000000x\"\>"], "Output",
+ CellLabel->"Out[12]=",ExpressionUUID->"cfe900e7-11df-47a4-b2ce-11178fcd1236"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellLabel->"Out[13]=",ExpressionUUID->"6a16ccbe-4048-4e1f-ad9f-d1b00fd9ae24"],
 
 Cell[BoxData[
  TemplateBox[{
-  "Import","fmterr",
-   "\"Cannot import data as \\!\\(\\*RowBox[{\\\"\\\\\\\"MP3\\\\\\\"\\\"}]\\) \
-format.\"",2,22,1,25499104860778598923,"Local"},
+  "BinaryWrite","nocoerce",
+   "\"\\!\\(\\*RowBox[{\\\"$Failed\\\"}]\\) cannot be coerced to the \
+specified format.\"",2,15,1,21453084327105345991,"Local"},
   "MessageTemplate"]], "Message", "MSG",
- CellChangeTimes->{3.782363929982375*^9},
  CellLabel->
   "During evaluation of \
-In[22]:=",ExpressionUUID->"ee9b6c1e-a6b8-47fe-9849-6129a97d0539"],
+In[12]:=",ExpressionUUID->"5e2ba54e-cc56-4feb-9508-1dc3336a5d6d"],
 
-Cell[BoxData["$Failed"], "Output",
- CellChangeTimes->{{3.782363862003358*^9, 3.7823639301284714`*^9}},
- CellLabel->"Out[22]=",ExpressionUUID->"bd365e7a-41e3-4883-8cd5-196df8d065c0"]
+Cell[BoxData[
+ TemplateBox[{
+  "StringJoin","string",
+   "\"String expected at position \\!\\(\\*RowBox[{\\\"1\\\"}]\\) in \
+\\!\\(\\*RowBox[{\\\"StringJoin\\\", \\\"[\\\", \
+RowBox[{\\\"IntegerDigits\\\", \\\"[\\\", RowBox[{\\\"\\\\\\\"8\\\\\\\"\\\", \
+\\\",\\\", \\\"\\\\\\\"2\\\\\\\"\\\", \\\",\\\", \
+\\\"\\\\\\\"$Failed\\\\\\\"\\\"}], \\\"]\\\"}], \\\"]\\\"}]\\).\"",2,15,2,
+   21453084327105345991,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[12]:=",ExpressionUUID->"58488bb8-5c96-4cf6-ab40-64de4674ebba"],
+
+Cell[BoxData[
+ RowBox[{"StringJoin", "[", 
+  RowBox[{"IntegerDigits", "[", 
+   RowBox[{"\<\"8\"\>", ",", "\<\"2\"\>", ",", "\<\"$Failed\"\>"}], "]"}], 
+  "]"}]], "Output",
+ CellLabel->"Out[15]=",ExpressionUUID->"95340627-7a84-4c86-bc73-748f45fb6d37"],
+
+Cell[BoxData[
+ RowBox[{"\<\"00000000100000000000000000000000x\"\>", "\[Equal]", 
+  RowBox[{"StringJoin", "[", 
+   RowBox[{"IntegerDigits", "[", 
+    RowBox[{"\<\"8\"\>", ",", "\<\"2\"\>", ",", "\<\"$Failed\"\>"}], "]"}], 
+   "]"}]}]], "Output",
+ CellLabel->"Out[16]=",ExpressionUUID->"1084e499-13ef-4599-85f2-11011a704c66"],
+
+Cell[BoxData["False"], "Output",
+ CellLabel->"Out[17]=",ExpressionUUID->"6b8566ba-8d44-4276-b772-0c0f78d2d36f"],
+
+Cell["$Failed", "Output",ExpressionUUID->"74ac6549-38a1-4498-be7e-c4668c7fbe2c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"inputReal", "=", "1.1754943508222875*^-38"}], "\[IndentingNewLine]", 
+ RowBox[{"bitStringFromReal", "=", 
+  RowBox[{
+  "realNumberToBitString", "[", "inputReal", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"outputReal", "=", 
+  RowBox[{
+  "bitStringToRealNumber", "[", "bitStringFromReal", 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"InputForm", "[", "outputReal", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"inputReal", "\[Equal]", "outputReal"}], "\[IndentingNewLine]", 
+ RowBox[{"inputReal", "===", "outputReal"}], "\[IndentingNewLine]", 
+ RowBox[{"inputReal", "-", "outputReal"}], "\[IndentingNewLine]"}], "Input",
+ CellLabel->"In[20]:=",ExpressionUUID->"6dbcea21-0e23-49ba-99e0-ae6942497765"],
+
+Cell[BoxData["1.1754943508222875`*^-38"], "Output",
+ CellLabel->"Out[20]=",ExpressionUUID->"17bb3566-5a57-4165-b9c5-63e564664410"],
+
+Cell[BoxData["\<\"00000000100000000000000000000000\"\>"], "Output",
+ CellLabel->"Out[21]=",ExpressionUUID->"a7b35842-5d9a-48cc-82ab-da6f0f0fd423"],
+
+Cell[BoxData["1.1754943508222875`*^-38"], "Output",
+ CellLabel->"Out[22]=",ExpressionUUID->"d42e0614-10b5-49f5-a130-6dc8f9746148"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[24]=",ExpressionUUID->"78afba3b-d5c7-4690-ac9b-b3dfb4fc9095"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[25]=",ExpressionUUID->"d087206b-cf94-4235-89c7-5132c1101f52"],
+
+Cell[BoxData["0.`"], "Output",
+ CellLabel->"Out[26]=",ExpressionUUID->"118e41c4-7984-4835-a093-002e741b52d7"],
+
+Cell["1.1754943508222875*^-38", "Output",ExpressionUUID->"231a3ecb-4c82-4b27-add8-41810b6fd28f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"inputReal", "=", 
+  "1000000000000000000.01234567890123456789012345678901234567"}], "\
+\[IndentingNewLine]", 
+ RowBox[{"outputReal", "=", 
+  RowBox[{"bitStringToRealNumber", "[", 
+   RowBox[{"realNumberToBitString", "[", "inputReal", "]"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"outputReal", "-", "inputReal"}], "\[IndentingNewLine]", 
+ RowBox[{"NumberForm", "[", 
+  RowBox[{"inputReal", ",", 
+   RowBox[{"ScientificNotationThreshold", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "Infinity"}], ",", "Infinity"}], "}"}]}], ",", 
+   RowBox[{"DigitBlock", "\[Rule]", "3"}], ",", 
+   RowBox[{"NumberSeparator", "->", 
+    RowBox[{"{", 
+     RowBox[{"\"\< \>\"", ",", " ", "\"\< \>\""}], "}"}]}]}], "]"}]}], "Input",
+ CellLabel->
+  "In[113]:=",ExpressionUUID->"d3c3b090-6dcb-494b-899d-392b39f2ee6f"],
+
+Cell[BoxData["1.00000000000000000001234567890123456789012345678901234567`56.*^\
+18"], "Output",
+ CellLabel->
+  "Out[113]=",ExpressionUUID->"c47df08c-257b-48be-9f76-ac4cfb0f8f1a"],
+
+Cell[BoxData["9.999999843067494`*^17"], "Output",
+ CellLabel->
+  "Out[114]=",ExpressionUUID->"997768c0-bcb8-4c6e-9518-d926f6fa3351"],
+
+Cell[BoxData[
+ RowBox[{"-", "1.569325056`*^10"}]], "Output",
+ CellLabel->
+  "Out[115]=",ExpressionUUID->"ce4db156-8a00-4c1c-85ec-ea1e8a2ea391"],
+
+Cell[BoxData[
+ TagBox[
+  InterpretationBox["\<\"1 000 000 000 000 000 000.012 345 678 901 234 567 \
+890 123 456 789 012 345 7\"\>",
+   1.00000000000000000001234567890123456789012345678901234567`56.*^18,
+   AutoDelete->True],
+  NumberForm[#, ScientificNotationThreshold -> {
+     DirectedInfinity[-1], 
+     DirectedInfinity[1]}, DigitBlock -> 3, 
+   NumberSeparator -> {" ", " "}]& ]], "Output",
+ CellLabel->
+  "Out[116]//NumberForm=",ExpressionUUID->"649a4fae-3005-4145-8e31-\
+09dbccdbfe50"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Options", "[", "NumberForm", "]"}]], "Input",
+ CellLabel->"In[98]:=",ExpressionUUID->"d657391d-682e-4357-a4d2-8bf5d0e5253e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"DefaultPrintPrecision", "\[Rule]", "Automatic"}], ",", 
+   RowBox[{"DigitBlock", "\[Rule]", "\[Infinity]"}], ",", 
+   RowBox[{"ExponentFunction", "\[Rule]", "Automatic"}], ",", 
+   RowBox[{"ExponentStep", "\[Rule]", "1"}], ",", 
+   RowBox[{"NumberFormat", "\[Rule]", "Automatic"}], ",", 
+   RowBox[{"NumberMultiplier", "\[Rule]", "\<\"\[Times]\"\>"}], ",", 
+   RowBox[{"NumberPadding", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\<\"\"\>", ",", "\<\"0\"\>"}], "}"}]}], ",", 
+   RowBox[{"NumberPoint", "\[Rule]", "\<\".\"\>"}], ",", 
+   RowBox[{"NumberSeparator", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\<\",\"\>", ",", "\<\" \"\>"}], "}"}]}], ",", 
+   RowBox[{"NumberSigns", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\<\"-\"\>", ",", "\<\"\"\>"}], "}"}]}], ",", 
+   RowBox[{"ScientificNotationThreshold", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"-", "5"}], ",", "6"}], "}"}]}], ",", 
+   RowBox[{"SignPadding", "\[Rule]", "False"}]}], "}"}]], "Output",
+ CellLabel->"Out[98]=",ExpressionUUID->"fbb1b731-4ef3-4c39-860c-158b54ca7b9c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DecimalForm", "[", 
+  RowBox[{"inputReal", ",", 
+   RowBox[{"DefaultPrintPrecision", "\[Rule]", "Infinity"}]}], "]"}]], "Input",
+ CellLabel->
+  "In[117]:=",ExpressionUUID->"9c04cb15-cf50-4e22-950a-313dac94fdc5"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "DecimalForm","nprec",
+   "\"The value \\!\\(\\*RowBox[{\\\"\[Infinity]\\\"}]\\) of the option \
+\\!\\(\\*RowBox[{\\\"DefaultPrintPrecision\\\"}]\\) should be a positive \
+machine integer or Automatic.\"",2,117,16,21453059790410428055,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[117]:=",ExpressionUUID->"0bacd28f-4e82-4462-bf49-5c0561973c92"],
+
+Cell[BoxData[
+ TagBox[
+  InterpretationBox["\<\"1000000000000000000.\
+0123456789012345678901234567890123457\"\>",
+   1.00000000000000000001234567890123456789012345678901234567`56.*^18,
+   AutoDelete->True],
+  DecimalForm[#, DefaultPrintPrecision -> DirectedInfinity[1]]& ]], "Output",
+ CellLabel->
+  "Out[117]//DecimalForm=",ExpressionUUID->"045b5204-d289-4b2f-8ca3-\
+ee5edb5373e9"]
+}, Open  ]],
+
+Cell[BoxData[" "], "Input",ExpressionUUID->"4fd16728-4fd5-451e-b407-600b7d30d21f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\:0414\:0438\:043d\:0430\:043c\:0438\:0447\:0435\:0441\:043a\:0438\:0439\
+ \:043c\:0430\:043d\:0438\:043f\:0443\:043b\:044f\:0442\:043e\:0440 ", \
+"Section",ExpressionUUID->"43cdc279-267f-4def-a0a9-dc3b61fbba23"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"y", "=", 
+    RowBox[{"realNumberToBitString", "[", "x", "]"}]}], ";", 
+   "\[IndentingNewLine]", 
+   RowBox[{"sign", "=", 
+    RowBox[{"StringTake", "[", 
+     RowBox[{"y", ",", "1"}], "]"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"exponent", "=", 
+    RowBox[{"StringTake", "[", 
+     RowBox[{"y", ",", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "9"}], "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"significand", "=", 
+    RowBox[{"StringTake", "[", 
+     RowBox[{"y", ",", 
+      RowBox[{"{", 
+       RowBox[{"10", ",", "32"}], "}"}]}], "]"}]}], ";", 
+   "\[IndentingNewLine]", 
+   RowBox[{"Grid", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<\:0412\:0432\:0435\:0434\:0438\:0442\:0435 \:0447\:0438\:0441\
+\:043b\:043e x:\>\"", ",", 
+         RowBox[{"Style", "[", 
+          RowBox[{
+           RowBox[{"Control", "[", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", 
+              RowBox[{
+               RowBox[{"InputField", "[", 
+                RowBox[{"#", ",", "Number", ",", 
+                 RowBox[{"FieldSize", "->", 
+                  RowBox[{"{", 
+                   RowBox[{"32", ",", " ", "1"}], "}"}]}]}], "]"}], "&"}]}], 
+             "}"}], "]"}], ",", 
+           RowBox[{"Darker", "@", "Green"}]}], "]"}], ",", "\"\<\>\""}], 
+        "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<\:0411\:0438\:0442\:043e\:0432\:0430\:044f \:0441\:0442\:0440\
+\:043e\:043a\:0430 \:0438\:0437 x:\>\"", ",", 
+         RowBox[{"realNumberToBitString", "[", "x", "]"}]}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Real32:\>\"", ",", 
+         RowBox[{"Grid", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+              "\"\<Sign\>\"", ",", "\"\<Exponent\>\"", ",", 
+               "\"\<Significand\>\""}], "}"}], "\[IndentingNewLine]", ",", 
+             RowBox[{"{", 
+              RowBox[{"sign", ",", "exponent", ",", "significand"}], "}"}], 
+             "\[IndentingNewLine]", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{"sign", "===", "\"\<0\>\""}], ",", "\"\<\>\"", ",", 
+                 "\"\<-\>\"", ",", "\"\<\>\""}], "]"}], ",", 
+               RowBox[{"FromDigits", "[", 
+                RowBox[{"exponent", ",", "2"}], "]"}], ",", 
+               RowBox[{"FromDigits", "[", 
+                RowBox[{"significand", ",", "2"}], "]"}]}], "}"}]}], "}"}], 
+           ",", 
+           RowBox[{"ItemStyle", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"{", 
+              RowBox[{"Red", ",", 
+               RowBox[{"Darker", "@", "Green"}], ",", "Blue"}], "}"}], 
+             "}"}]}]}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<\:0412\:043e\:0441\:0441\:0442\:0430\:043d\:043e\:0432\:043b\
+\:0435\:043d\:043d\:043e\:0435 \:0447\:0438\:0441\:043b\:043e\\n\:0438\:0437 \
+\:0431\:0438\:0442\:043e\:0432\:043e\:0439 \:0441\:0442\:0440\:043e\:043a\
+\:0438:\>\"", ",", 
+         RowBox[{"DecimalForm", "[", 
+          RowBox[{
+           RowBox[{"bitStringToRealNumber", "[", "y", "]"}], ",", 
+           RowBox[{"ScientificNotationThreshold", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "Infinity"}], ",", "Infinity"}], "}"}]}], ",", 
+           RowBox[{"DigitBlock", "\[Rule]", 
+            RowBox[{"{", 
+             RowBox[{"3", ",", "2"}], "}"}]}]}], "]"}]}], "}"}]}], "}"}], ",", 
+     RowBox[{"Alignment", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"Right", ",", "Left"}], "}"}], "}"}]}]}], "]"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellLabel->"In[10]:=",ExpressionUUID->"a9c07a27-9d95-46c4-90ca-21b69b005e58"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {}, 
+    Typeset`size$$ = {801., {83.91754150390625, 91.08245849609375}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {}, "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> ($CellContext`y = \
+$CellContext`realNumberToBitString[$CellContext`x]; $CellContext`sign = 
+        StringTake[$CellContext`y, 1]; $CellContext`exponent = 
+        StringTake[$CellContext`y, {2, 9}]; $CellContext`significand = 
+        StringTake[$CellContext`y, {10, 32}]; 
+       Grid[{{"\:0412\:0432\:0435\:0434\:0438\:0442\:0435 \:0447\:0438\:0441\
+\:043b\:043e x:", 
+           Style[
+            
+            Control[{$CellContext`x, 
+              InputField[#, Number, FieldSize -> {32, 1}]& }], 
+            Darker[Green]], ""}, {
+          "\:0411\:0438\:0442\:043e\:0432\:0430\:044f \
+\:0441\:0442\:0440\:043e\:043a\:0430 \:0438\:0437 x:", 
+           $CellContext`realNumberToBitString[$CellContext`x]}, {"Real32:", 
+           
+           Grid[{{"Sign", "Exponent", 
+              "Significand"}, {$CellContext`sign, $CellContext`exponent, \
+$CellContext`significand}, {
+              If[$CellContext`sign === "0", "", "-", ""], 
+              FromDigits[$CellContext`exponent, 2], 
+              FromDigits[$CellContext`significand, 2]}}, ItemStyle -> {{Red, 
+               Darker[Green], Blue}}]}, {
+          "\:0412\:043e\:0441\:0441\:0442\:0430\:043d\:043e\:0432\:043b\:0435\
+\:043d\:043d\:043e\:0435 \:0447\:0438\:0441\:043b\:043e\n\:0438\:0437 \:0431\
+\:0438\:0442\:043e\:0432\:043e\:0439 \:0441\:0442\:0440\:043e\:043a\:0438:", 
+           DecimalForm[
+            $CellContext`bitStringToRealNumber[$CellContext`y], 
+            ScientificNotationThreshold -> {-Infinity, Infinity}, 
+            DigitBlock -> {3, 2}]}}, Alignment -> {{Right, Left}}]), 
+      "Specifications" :> {}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{856., {120., 128.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellLabel->"Out[10]=",ExpressionUUID->"445e604d-ec78-43a7-84c1-2b44b13a5288"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], "\n", 
+ RowBox[{
+  RowBox[{"dimension", "=", "3"}], ";"}], "\n", 
+ RowBox[{"inputA", "=", 
+  RowBox[{"Partition", "[", 
+   RowBox[{
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"InputField", "[", 
+       RowBox[{
+        RowBox[{"Dynamic", "[", 
+         RowBox[{
+          RowBox[{"a", "[", "i", "]"}], ",", 
+          RowBox[{"Function", "[", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"#", "=!=", "Null"}], "&&", 
+              RowBox[{"IntegerQ", "[", "#", "]"}]}], ",", 
+             RowBox[{
+              RowBox[{"a", "[", "i", "]"}], "=", "#"}]}], "]"}], "]"}]}], 
+         "]"}], ",", "Number", ",", 
+        RowBox[{"FieldSize", "\[Rule]", "4"}]}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"dimension", "^", "2"}]}], "}"}]}], "]"}], ",", "dimension"}],
+    "]"}]}]}], "Input",
+ CellLabel->"In[21]:=",ExpressionUUID->"89ac7691-1167-4b1a-a18a-65461b764535"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4], ",", 
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4], ",", 
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4], ",", 
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4], ",", 
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4], ",", 
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4], ",", 
+     InputFieldBox[Dynamic[
+       $CellContext`a[$CellContext`i], If[
+        And[# =!= Null, 
+         IntegerQ[#]], $CellContext`a[$CellContext`i] = #]& ], Number,
+      FieldSize->4]}], "}"}]}], "}"}]], "Output",
+ CellLabel->"Out[23]=",ExpressionUUID->"5c8368a0-cc96-4400-a9e9-56adecbcbf4d"]
+}, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1842, 1008},
-WindowMargins->{{-9, Automatic}, {Automatic, 0}},
+WindowSize->{1386, 855},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 Magnification:>1.25 Inherited,
-FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -599,33 +1220,93 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 575, 14, 35, "Input",ExpressionUUID->"cc3acad7-a12e-4a44-a738-5d36b925698c"],
-Cell[1158, 38, 401, 9, 40, "Output",ExpressionUUID->"25ac4d9e-d929-40cd-8e11-21f734a42ba6"]
+Cell[580, 22, 575, 14, 37, "Input",ExpressionUUID->"cc3acad7-a12e-4a44-a738-5d36b925698c"],
+Cell[1158, 38, 401, 9, 42, "Output",ExpressionUUID->"25ac4d9e-d929-40cd-8e11-21f734a42ba6"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1596, 52, 294, 5, 35, "Input",ExpressionUUID->"20e52a3d-8739-480c-874a-ce000c6946a7"],
-Cell[1893, 59, 241, 4, 40, "Output",ExpressionUUID->"bd04a2f3-d406-41f5-8325-ef5ffb60cc58"]
+Cell[1596, 52, 294, 5, 37, "Input",ExpressionUUID->"20e52a3d-8739-480c-874a-ce000c6946a7"],
+Cell[1893, 59, 241, 4, 42, "Output",ExpressionUUID->"bd04a2f3-d406-41f5-8325-ef5ffb60cc58"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[2171, 68, 1517, 38, 108, "Input",ExpressionUUID->"142d83b1-a4b2-4b30-ab86-20696b359765"],
-Cell[3691, 108, 587, 9, 40, "Output",ExpressionUUID->"78b1aae9-fa48-4294-b5ce-0b48ea8e9e57"],
-Cell[4281, 119, 2477, 48, 72, "Output",ExpressionUUID->"b2f89433-7189-4f14-8f17-4a7d20ed7ba2"],
-Cell[6761, 169, 568, 8, 43, "Output",ExpressionUUID->"f09dc6fc-5664-4bbc-a298-b1950fcc21b1"],
-Cell[7332, 179, 544, 7, 40, "Output",ExpressionUUID->"f5889c8f-7fa1-4613-97e0-c53e2a946d87"]
+Cell[2171, 68, 1517, 38, 116, "Input",ExpressionUUID->"142d83b1-a4b2-4b30-ab86-20696b359765"],
+Cell[3691, 108, 587, 9, 42, "Output",ExpressionUUID->"78b1aae9-fa48-4294-b5ce-0b48ea8e9e57"],
+Cell[4281, 119, 2477, 48, 62, "Output",ExpressionUUID->"b2f89433-7189-4f14-8f17-4a7d20ed7ba2"],
+Cell[6761, 169, 568, 8, 46, "Output",ExpressionUUID->"f09dc6fc-5664-4bbc-a298-b1950fcc21b1"],
+Cell[7332, 179, 544, 7, 43, "Output",ExpressionUUID->"f5889c8f-7fa1-4613-97e0-c53e2a946d87"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7913, 191, 10284, 229, 612, "Input",ExpressionUUID->"e1c676a1-a122-4a41-ab26-96fd1095d8b6"],
-Cell[18200, 422, 5234, 107, 272, "Output",ExpressionUUID->"e4fc2ace-7c23-4524-9835-1b1233213429"]
+Cell[7913, 191, 10284, 229, 702, "Input",ExpressionUUID->"e1c676a1-a122-4a41-ab26-96fd1095d8b6"],
+Cell[18200, 422, 5262, 107, 264, "Output",ExpressionUUID->"e4fc2ace-7c23-4524-9835-1b1233213429"]
 }, Open  ]],
-Cell[23449, 532, 205, 3, 35, "Input",ExpressionUUID->"13da20c9-fbe5-4a65-88e6-4e53a21d9a61"],
+Cell[23477, 532, 205, 3, 37, "Input",ExpressionUUID->"13da20c9-fbe5-4a65-88e6-4e53a21d9a61"],
 Cell[CellGroupData[{
-Cell[23679, 539, 252, 5, 52, InheritFromParent,ExpressionUUID->"12d1dad4-44ef-4769-b134-1da79fda9822"],
-Cell[23934, 546, 306, 8, 40, "Output",ExpressionUUID->"1f99ed08-b2d2-448f-b84f-df5f55412fcf"]
+Cell[23707, 539, 252, 5, 57, "Input",ExpressionUUID->"12d1dad4-44ef-4769-b134-1da79fda9822"],
+Cell[23962, 546, 306, 8, 42, "Output",ExpressionUUID->"1f99ed08-b2d2-448f-b84f-df5f55412fcf"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[24277, 559, 349, 6, 35, "Input",ExpressionUUID->"ac7ee4c8-e3d0-4d9c-9359-e227c5606a8b"],
-Cell[24629, 567, 366, 9, 29, "Message",ExpressionUUID->"ee9b6c1e-a6b8-47fe-9849-6129a97d0539"],
-Cell[24998, 578, 181, 2, 40, "Output",ExpressionUUID->"bd365e7a-41e3-4883-8cd5-196df8d065c0"]
+Cell[24305, 559, 549, 12, 64, "Input",ExpressionUUID->"ac7ee4c8-e3d0-4d9c-9359-e227c5606a8b"],
+Cell[24857, 573, 155, 2, 42, "Output",ExpressionUUID->"a060c628-6270-4461-a324-526bd19f6722"],
+Cell[25015, 577, 145, 3, 42, "Output",ExpressionUUID->"19c49434-6df1-4964-af99-0d9e23ac2f39"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25197, 585, 461, 6, 132, "Section",ExpressionUUID->"61e1a160-ea7a-480b-a9a2-88b8afe5f52c"],
+Cell[25661, 593, 2451, 60, 350, "Input",ExpressionUUID->"24855218-648d-4cc1-ad95-e0851704527e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28149, 658, 405, 6, 132, "Section",ExpressionUUID->"022b0af0-3548-451b-be24-11a95808e630"],
+Cell[28557, 666, 1422, 38, 247, "Input",ExpressionUUID->"741bfecb-462e-4b16-8099-e7d5f11fbbf0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30016, 709, 375, 4, 84, "Section",ExpressionUUID->"81a3f302-0394-485d-bc77-b06a6f4e9797"],
+Cell[CellGroupData[{
+Cell[30416, 717, 697, 15, 168, "Input",ExpressionUUID->"f20578a0-2a33-43e6-84da-8d710369c052"],
+Cell[31116, 734, 147, 1, 42, "Output",ExpressionUUID->"cfe900e7-11df-47a4-b2ce-11178fcd1236"],
+Cell[31266, 737, 113, 1, 42, "Output",ExpressionUUID->"6a16ccbe-4048-4e1f-ad9f-d1b00fd9ae24"],
+Cell[31382, 740, 332, 8, 29, "Message",ExpressionUUID->"5e2ba54e-cc56-4feb-9508-1dc3336a5d6d"],
+Cell[31717, 750, 559, 12, 29, "Message",ExpressionUUID->"58488bb8-5c96-4cf6-ab40-64de4674ebba"],
+Cell[32279, 764, 250, 5, 45, "Output",ExpressionUUID->"95340627-7a84-4c86-bc73-748f45fb6d37"],
+Cell[32532, 771, 323, 6, 45, "Output",ExpressionUUID->"1084e499-13ef-4599-85f2-11011a704c66"],
+Cell[32858, 779, 111, 1, 42, "Output",ExpressionUUID->"6b8566ba-8d44-4276-b772-0c0f78d2d36f"],
+Cell[32972, 782, 80, 0, 42, "Output",ExpressionUUID->"74ac6549-38a1-4498-be7e-c4668c7fbe2c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33089, 787, 720, 13, 220, "Input",ExpressionUUID->"6dbcea21-0e23-49ba-99e0-ae6942497765"],
+Cell[33812, 802, 130, 1, 43, "Output",ExpressionUUID->"17bb3566-5a57-4165-b9c5-63e564664410"],
+Cell[33945, 805, 146, 1, 42, "Output",ExpressionUUID->"a7b35842-5d9a-48cc-82ab-da6f0f0fd423"],
+Cell[34094, 808, 130, 1, 43, "Output",ExpressionUUID->"d42e0614-10b5-49f5-a130-6dc8f9746148"],
+Cell[34227, 811, 110, 1, 42, "Output",ExpressionUUID->"78afba3b-d5c7-4690-ac9b-b3dfb4fc9095"],
+Cell[34340, 814, 110, 1, 42, "Output",ExpressionUUID->"d087206b-cf94-4235-89c7-5132c1101f52"],
+Cell[34453, 817, 109, 1, 42, "Output",ExpressionUUID->"118e41c4-7984-4835-a093-002e741b52d7"],
+Cell[34565, 820, 96, 0, 42, "Output",ExpressionUUID->"231a3ecb-4c82-4b27-add8-41810b6fd28f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34698, 825, 847, 20, 116, "Input",ExpressionUUID->"d3c3b090-6dcb-494b-899d-392b39f2ee6f"],
+Cell[35548, 847, 178, 3, 43, "Output",ExpressionUUID->"c47df08c-257b-48be-9f76-ac4cfb0f8f1a"],
+Cell[35729, 852, 132, 2, 43, "Output",ExpressionUUID->"997768c0-bcb8-4c6e-9518-d926f6fa3351"],
+Cell[35864, 856, 143, 3, 43, "Output",ExpressionUUID->"ce4db156-8a00-4c1c-85ec-ea1e8a2ea391"],
+Cell[36010, 861, 492, 12, 56, "Output",ExpressionUUID->"649a4fae-3005-4145-8e31-09dbccdbfe50"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36539, 878, 148, 2, 37, "Input",ExpressionUUID->"d657391d-682e-4357-a4d2-8bf5d0e5253e"],
+Cell[36690, 882, 1108, 24, 95, "Output",ExpressionUUID->"fbb1b731-4ef3-4c39-860c-158b54ca7b9c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37835, 911, 235, 5, 37, "Input",ExpressionUUID->"9c04cb15-cf50-4e22-950a-313dac94fdc5"],
+Cell[38073, 918, 422, 9, 29, "Message",ExpressionUUID->"0bacd28f-4e82-4462-bf49-5c0561973c92"],
+Cell[38498, 929, 382, 9, 56, "Output",ExpressionUUID->"045b5204-d289-4b2f-8ca3-ee5edb5373e9"]
+}, Open  ]],
+Cell[38895, 941, 82, 0, 37, "Input",ExpressionUUID->"4fd16728-4fd5-451e-b407-600b7d30d21f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39014, 946, 218, 2, 84, "Section",ExpressionUUID->"43cdc279-267f-4def-a0a9-dc3b61fbba23"],
+Cell[CellGroupData[{
+Cell[39257, 952, 3983, 99, 422, "Input",ExpressionUUID->"a9c07a27-9d95-46c4-90ca-21b69b005e58"],
+Cell[43243, 1053, 2964, 57, 271, "Output",ExpressionUUID->"445e604d-ec78-43a7-84c1-2b44b13a5288"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46244, 1115, 1028, 28, 116, "Input",ExpressionUUID->"89ac7691-1167-4b1a-a18a-65461b764535"],
+Cell[47275, 1145, 1995, 54, 54, "Output",ExpressionUUID->"5c8368a0-cc96-4400-a9e9-56adecbcbf4d"]
+}, Open  ]]
 }, Open  ]]
 }
 ]
