@@ -1,1 +1,129 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Представление_числа
+{
+    class Program
+    {
+        public static void IsLittleBig ()// проверка на little endian
+            //или big endian
+        {
+            if (BitConverter.IsLittleEndian)
+            {
+                Console.WriteLine("little-endian");
+            }
+            else
+            {
+                Console.WriteLine("most likely big-endian");
+            }
+        }
+        public static void BinaryWriting ( float a) //запись числа в файл
+        {
+            BinaryWriter writer = new BinaryWriter(File.Open("test.txt"
+                , FileMode.OpenOrCreate));
+            writer.Write(a);
+            writer.Close();
+        }
+        public static string BinaryReading () //чтение байтов из файла
+        {
+            //Я обошлась без определения файла пользователем,
+            //надеясь, что пока не надо экспериментривать с самим файлом
+            string str = "", str1 = "";
+            FileStream f = new FileStream("test.txt"
+                , FileMode.Open, FileAccess.Read, FileShare.Read);
+            BinaryReader reader = new BinaryReader(f);
+            while (reader.PeekChar() > -1)
+            {
+                byte input = reader.ReadByte();//Чтение очередного байта
+                str = Convert.ToString(input, 2).PadLeft(8, '0'); //запись байта в строку
+               // Console.WriteLine(input);
+                //Console.WriteLine(str);
+                str1 = str + str1;// сборка конечной строки в правильном порядке слева направо
+            }
+            reader.Close();
+            return str1;// На выходе имеется строка из 32 символов {0,1}
+        }
+        public static double Build (string str1) //сборка числа
+        {
+            string b = str1.Substring(1, 8);//В строковую переменную записывается с 1 по 8 символы
+            // Из этого будет собираться экспонента
+            string m = str1.Substring(9); //В строковую переменную записываются все символы,
+            // начиная с 9 до конца. Это будет мантисса
+            int sign = 0;//То, что будет определять знак
+            int bi = 0; //Это будет экспанента
+            double ma = 0;
+            if (str1[0] == '0')//Если нулевой символ 0, то +
+            {
+                sign = 0;
+            }
+            else
+                sign = 1;
+
+            for (int i = 0; i < 8; i++)// Собирается экспанента
+            {
+                if (b[i] == '1')
+                    bi += Convert.ToInt32(Math.Pow(2, 7 - i));
+            }
+            if (bi > 0 && bi < 255) 
+                m = m.Insert(0, "1");//для нормальных чисел в мантиссу добавляется 1
+            else
+                if (bi == 0)
+                    m = m.Insert(0, "0");// для субнормальных в мантиссу добавляется 0
+                else
+                {//Далее определяются бесконечности и NaN'ы
+                    if (sign == 0 && m == "00000000000000000000000")
+                    {
+                        Console.WriteLine("+INF");
+                        return 0; // Ни бесконечности, ни NaN'ы собирать не надо
+                        //поэтому тут работа функции прекращается
+                    }
+                    if (sign == 1 && m == "00000000000000000000000")
+                    {
+                        Console.WriteLine("-INF");
+                        return 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("NaN");
+                        return 0;
+                    }
+                }
+
+            for (int i = 0; i < 23; i++) //Собственно, сборка числа
+            {
+                if (m[i] == '1')
+                    ma += (Math.Pow(2, 23 - i));
+            }
+            ma = ma / Convert.ToSingle(Math.Pow(2, 23));
+            bi = bi - 127;
+            //Console.WriteLine(Math.Pow(-1, sign) * (Math.Pow(2, bi)) * ma);
+            return Math.Pow(-1, sign) * (Math.Pow(2, bi)) * ma;
+        }
+        static void Main(string[] args)
+        {
+            //float a = -0.1f/0.0f;//бесконечность
+            //float a = 0.0f / 0.0f;//неопределеность 0/0
+            float a = 3.4f;//не нуждается в комментарии 
+            //float a = (-0.1f / 0.0f) / (0.1f / 0.0f);//неопределенность 00/00
+
+            //string nan = "01111111100010000000000000000000";
+
+            BinaryWriting(a);
+            string ans = BinaryReading();
+            double ret = Build(ans);
+            //double ret1 = Build(nan);
+            Console.WriteLine(ret);
+            Console.WriteLine(a);
+
+           
+
+            Console.ReadKey();
+        }
+    }
+}
+
 
