@@ -43,22 +43,22 @@ begin
   for i:=4 downto 1 do ss:=ss+s[i];
   ChisloToBit:=ss;
 end;
-  
-function BitToChislo(ss: string): real; //функция, которая переводит побитовое представление числа в вещественное число
+
+function BitToChislo(ss: string): real;//функция, которая переводит побитовое представление числа в вещественное число
   var i: integer;
   s1,s2,s3: string;
-  eksp,mant: integer;
-  l: real;
+  s: array [1..4] of string;
+  l,eksp,mant: real;
 begin
-  s1:=ss[1]; s2:=''; s3:=''; //разбиение на знак, экспоненту, мантиссу
+  s1:=ss[1]; s2:=''; s3:='';//разбиение на знак, экспоненту, мантиссу
   for i:=2 to 9 do s2:=s2+ss[i];
   for i:=10 to 32 do s3:=s3+ss[i];
   eksp:=0; mant:=0;
-  for i:=1 to 8 do eksp:=eksp+StrToInt(s2[i])*round(power(2,8-i));//подсчет экспоненты
-  for i:=1 to 23 do mant:=mant+StrToInt(s3[i])*round(power(2,-i));//подсчет мантиссы
+  for i:=1 to 8 do eksp:=eksp+StrToInt(s2[i])*power(2,8-i);//подсчет экспоненты
+  for i:=1 to 23 do mant:=mant+StrToInt(s3[i])*power(2,-i);//подсчет мантиссы
   if eksp=255 then 
     if mant=0 then
-      if StrToInt(s1)=0 then l:=1/0 //условие на появление + и - бесконечностей
+      if StrToInt(s1)=0 then l:=1/0  //условие на появление + и - бесконечностей
       else l:=-1/0
     else if StrToInt(s1)=0 then l:=-1/0+1/0 //условие на появление + и - NaN
          else l:=-1/0+1/0
@@ -82,7 +82,7 @@ begin
     for j:=1 to 8 do
       b[i]:=b[i]+round(StrToInt(str[(i-1)*8+j])*power(2,8-j));//переводит побитовое представление числа в числа таблицы ASCII
   end;
-  for i:=1 to 4 do writeln(b[i]);
+
   assign(f, 'g.txt');
   rewrite(f);
   for i:=4 downto 1 do
