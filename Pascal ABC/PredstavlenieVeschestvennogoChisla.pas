@@ -11,7 +11,7 @@ begin
   write(f,st); //запись в файл числа в виде знаков таблицы ASCII
   close(f);
   i:=1;
-  assign(f, 'f.txt');
+  assign(f, 'f.txt'); //считывание файла
   reset(f);
   while not Eof(f) do
   begin
@@ -20,7 +20,7 @@ begin
     i:=i+1;
   end;
   close(f);
-  for i:=4 downto 1 do //считывание чисел с конца 
+  for i:=4 downto 1 do //преобразование чисел в числа двоичной формы
   begin
     b:=a[i];
     repeat 
@@ -37,45 +37,54 @@ begin
       b:= b div 2; 
       end;
     if length(s[i])<8 then
-     for j:=1 to 8-length(s[i]) do s[i]:='0'+s[i];
+     for j:=1 to 8-length(s[i]) do s[i]:='0'+s[i];//добавление 0 в начало записи числа
   end;
   ss:='';
-  for i:=4 downto 1 do ss:=ss+s[i];
+  for i:=4 downto 1 do ss:=ss+s[i];//запись 4 чисел по 8 бит в число из 32 бит
   ChisloToBit:=ss;
 end;
 
-function BitToChislo(ss: string): real;//функция, которая переводит побитовое представление числа в вещественное число
+function BitToChislo(ss: string): single;//функция, которая переводит побитовое представление числа в число типа single-precision
   var i: integer;
   s1,s2,s3: string;
-  s: array [1..4] of string;
-  l,eksp,mant: real;
+  eksp: integer;
+  l,mant: real;
 begin
   s1:=ss[1]; s2:=''; s3:='';//разбиение на знак, экспоненту, мантиссу
   for i:=2 to 9 do s2:=s2+ss[i];
   for i:=10 to 32 do s3:=s3+ss[i];
   eksp:=0; mant:=0;
-  for i:=1 to 8 do eksp:=eksp+StrToInt(s2[i])*power(2,8-i);//подсчет экспоненты
+  for i:=1 to 8 do eksp:=eksp+StrToInt(s2[i])*round(power(2,8-i));//подсчет экспоненты
   for i:=1 to 23 do mant:=mant+StrToInt(s3[i])*power(2,-i);//подсчет мантиссы
-  if eksp=255 then 
+  //проверка условий и определение класса числа:
+  if eksp=255 then
     if mant=0 then
-      if StrToInt(s1)=0 then l:=1/0  //условие на появление + и - бесконечностей
-      else l:=-1/0
-    else if StrToInt(s1)=0 then l:=-1/0+1/0 //условие на появление + и - NaN
-         else l:=-1/0+1/0
-  else if eksp=0 then l:=power(-1,StrToInt(s1))*power(2,(eksp-127))*mant //подсчет субнормального числа
-       else l:=power(-1,StrToInt(s1))*power(2,(eksp-127))*(1+mant); //подсчет вещественного числа
-  BitToChislo:=l;
+      if StrToInt(s1)=0 then BitToChislo:=1/0  //условие на появление + и - бесконечностей
+      else BitToChislo:=-1/0
+    else if StrToInt(s1)=0 then BitToChislo:=0/0 //условие на появление + и - NaN
+         else BitToChislo:=-0/0
+  else
+
+  if eksp=0 then
+    begin
+      l:=power(2,(eksp-126))*mant; //подсчет субнормального числа
+      if StrToInt(s1)=0 then BitToChislo:=l 
+      else BitToChislo:=(-1)*l
+    end
+  else 
+    begin 
+      l:=power(2,(eksp-127))*(1+mant); //подсчет вещественного числа
+      if StrToInt(s1)=0 then BitToChislo:=l 
+      else BitToChislo:=(-1)*l; 
+    end; 
 end;
 
-function ChToFileToCh(str: string): single; //функция, которая переводит побитовое представление числа сначала в файл, а потом в вещественное число.
+function ChToFileToCh(str: string): single; //преобразование побитового представления числа в число типа single-precision с помощью встроенных функций PascalABC.NET
   var f: file;
-  s,ss: string;
   strb: single;
-  i,j,ch: integer;
+  i,j: integer;
   b: array [1..4] of byte;
 begin
-  s:=''; ss:='';
- 
   for i:=1 to 4 do
   begin
     b[i]:=0;
@@ -94,20 +103,21 @@ begin
   ChToFileToCh:=strb;
 end;
 
+var N: single;
 begin
-writeln(ChisloToBit(3.405));
-writeln(BitToChislo(ChisloToBit(3.405)));
-writeln(ChToFileToCh(ChisloToBit(3.405)));
-writeln;
-writeln('+0 = ',BitToChislo('00000000000000000000000000000000'));
-writeln('-0 = ',BitToChislo('10000000000000000000000000000000'));
-writeln;
-writeln('+infinity = ',BitToChislo('01111111100000000000000000000000'));
-writeln('-infinity = ',BitToChislo('11111111100000000000000000000000'));
-writeln;
-writeln('+NaN = ',BitToChislo('01111111110000000000000000000001'));
-writeln('-NaN = ',BitToChislo('11111111110000000000000000000001'));
-writeln;
-writeln('+subnormal = ',BitToChislo('00000000000000000000000000000001'));
-writeln('-subnormal = ',BitToChislo('10000000000000000000000000000001'));
+  N:=3.4;
+  writeln(ChisloToBit(N));//преобразование числа N в побитовое представление с помощью функции
+  writeln(N,' = ',BitToChislo(ChisloToBit(N)),' (встроенной функцией = ',ChToFileToCh(ChisloToBit(N)),')');//численное преобразование побитового представления числа N в число типа single-precision и преобразование побитового представления числа N в число типа single-precision с помощью встроенных функций
+  writeln;
+  writeln('+0 = ',BitToChislo('00000000000000000000000000000000'),' (встроенной функцией = ',ChToFileToCh('00000000000000000000000000000000'),')');
+  writeln('-0 = ',BitToChislo('10000000000000000000000000000000'),' (встроенной функцией = ',ChToFileToCh('10000000000000000000000000000000'),')');
+  writeln;
+  writeln('+infinity = ',BitToChislo('01111111100000000000000000000000'),' (встроенной функцией = ',ChToFileToCh('01111111100000000000000000000000'),')');
+  writeln('-infinity = ',BitToChislo('11111111100000000000000000000000'),' (встроенной функцией = ',ChToFileToCh('11111111100000000000000000000000'),')');
+  writeln;
+  writeln('+NaN = ',BitToChislo('01111111110000000000000000000001'),' (встроенной функцией = ',ChToFileToCh('01111111110000000000000000000001'),')');
+  writeln('-NaN = ',BitToChislo('11111111110000000000000000000001'),' (встроенной функцией = ',ChToFileToCh('11111111110000000000000000000001'),')');
+  writeln;
+  writeln('+subnormal = ',BitToChislo('00000000000000000000000000000001'),' (встроенной функцией = ',ChToFileToCh('00000000000000000000000000000001'),')');
+  writeln('-subnormal = ',BitToChislo('10000000000000000000000000000001'),' (встроенной функцией = ',ChToFileToCh('10000000000000000000000000000001'),')');
 end.
