@@ -1,0 +1,116 @@
+restart;
+with(Bits):
+
+Pr1:=proc(test)                                                                   #ввод - число
+local bytes,bytes2,b1,b2,b3,b4,result,sp,sp2,sp3,ekp,mant,otvet,i;
+FileTools[Binary][WriteFile]("data.txt",float[4],[test],byteorder=big):           #запись значения в файл
+FileTools[Binary][ReadFile]("data.txt",datatype=float[4],byteorder=big):          #считывание файла float
+bytes:=FileTools[Binary][ReadFile]("data.txt",datatype=integer[1],byteorder=big): #считывание файла integer
+convert(bytes[4],binary,8):                                         #разделение 4-х байтового числа на 4 части в двоичной форме по 8 бит
+bytes2:=[0,0,0,0]:
+for i from 1 to 4 do
+  if (bytes[i]<0) then bytes2[i]:=256+bytes[i];
+  else bytes2[i]:=bytes[i]: fi:
+od:
+#двоичное представление числа
+b1:=ListTools[Reverse](Split(bytes2[1],bits=8)):
+b2:=ListTools[Reverse](Split(bytes2[2],bits=8)):
+b3:=ListTools[Reverse](Split(bytes2[3],bits=8)):
+b4:=ListTools[Reverse](Split(bytes2[4],bits=8)):
+result:=[op(b1),op(b2),op(b3),op(b4)];
+end proc:                                                               #вывод - массив из 32 элементов, каждый из которых либо 0, либо 1
+Pr1(undefined);
+Pr1(infinity);
+Pr1(48.123);
+Pr1(0);
+Pr1(-infinity);
+Pr1(2.93873587705571877*10^(-39));
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #вывод
+[0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #вывод
+[0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0] #вывод
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #вывод
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #вывод
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] #вывод
+
+Bitt:=proc(res)                                                           #ввод массив из 32 элементов, каждый из которых либо 0, либо 1
+local ekp,sp2,sp3,k,mant,sp,otvet;
+sp:=res[1];                                                                                   #нахождение S(знак) 
+sp2:=res[2..9];                                                                               #нахождение Е
+sp3:=res[10..32];                                                                             #нахождение m
+ekp := sp2[1]*2^7+sp2[2]*2^6+sp2[3]*2^5+sp2[4]*2^4+sp2[5]*2^3+sp2[6]*2^2+2*sp2[7]+sp2[8]*2^0; #нахождение экспоненты
+mant := sum(sp3[k]/2^k, k = 1 .. 23);                                                         #нахождение мантиссы
+if ekp = 255 then                                                                             #проверка условий и определение класса числа
+  if mant = 0 then 
+    if sp = 0 then print('infinity') 
+    else print('-infinity') end if 
+  else 
+  if sp = 0 then print(Nan) 
+  else print(-Nan) end if 
+  end if 
+else if ekp = 0 then otvet := (-1)^sp*2^(1+ekp-127)*mant; print(evalf(otvet)) 
+     else otvet := (-1)^sp*2^(ekp-127)*(1+mant); print(evalf(otvet)): 
+end if: 
+end if:
+end proc:                                                                                      #вывод - число
+
+Bitt([0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+Bitt([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+Bitt([0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+Bitt([1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]); 
+Bitt([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                                      38
+                        3.402823466 10          #вывод
+                                     -39
+                       2.938735877 10           #вывод
+                            infinity            #вывод
+                           -infinity            #вывод
+                               0.               #вывод
+
+Pr2 := proc (test3)                                  # ввод - массив из 32 элементов, каждый из которых либо 0, либо 1
+local i, a1, p1, fl, a2, p2, a3, p3, a4, p4, fl1, z; 
+a1 := 0; a2 := 0; a3 := 0; a4 := 0;                             
+for i from 1 to 8 do                                 # преобразование первых 8 чисел в двоичное число
+a1 := a1+10^(8-i)*test3[i] end do;               
+p1 := convert(a1, decimal, binary);                  # перевод числа из двоичной записи в десятичную запись
+if 0 <= p1 and p1 <= 127 then p1 
+else p1 := p1-256 end if;                            # условие для получения беззнакового integer[1]
+fl := FileTools[Binary][Open]("data9.txt", create = true, overwrite = true);    # создание файла data9.txt
+FileTools[Binary][Write](fl, integer[1], [p1]);      # запись первого числа для очистки файла
+FileTools[Binary][Close](fl);                        # закрытие файла
+for i from 9 to 16 do                                # преобразование вторых 8 чисел в двоичное число
+a2 := a2+10^(16-i)*test3[i] end do; 
+p2 := convert(a2, decimal, binary);                  # перевод числа из двоичной записи в десятичную запись
+if 0 <= p2 and p2 <= 127 then p2   
+else p2 := p2-256 end if;                            # условие для получения беззнакового integer[1]
+for i from 17 to 24 do                               # преобразование третих 8 чисел в двоичное число
+a3 := a3+10^(24-i)*test3[i] end do; 
+p3 := convert(a3, decimal, binary);                  # перевод числа из двоичной записи в десятичную запись
+if 0 <= p3 and p3 <= 127 then p3 
+else p3 := p3-256 end if;                            # условие для получения беззнакового integer[1]
+for i from 25 to 32 do                               # преобразование последних 8 чисел в двоичное число
+a4 := a4+10^(32-i)*test3[i] end do;
+p4 := convert(a4, decimal, binary);                  # перевод числа из двоичной записи в десятичную запись
+if 0 <= p4 and p4 <= 127 then p4 
+else p4 := p4-256 end if;                            # условие для получения беззнакового integer[1]
+fl1 := FileTools[Binary][Open]("data9.txt", create = false, append = true); # открытие файла для последующей дозаписи в файл трех последних чисел
+FileTools[Binary][Write](fl1, integer[1], [p2, p3, p4]);                    # дозапись последних трех чисел
+FileTools[Binary][Close](fl1);                                              # закрытие файла
+z := FileTools[Binary][Read]("data9.txt", float[4], byteorder = big);       # считывание файла data9.txt
+FileTools[Binary][Close]("data9.txt");                                      # закрытие файла 
+print(z[1]) 
+end proc;                                                                   # вывод - число, полученное стандартными методами  пакета Maple
+Pr2([0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                        Float(infinity)                #вывод
+Pr2([0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                        Float(undefined)               #вывод
+Pr2([0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                        Float(infinity)                #вывод
+Pr2([0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0]);
+                      48.1230010986328125              #вывод
+Pr2([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                               0.                      #вывод
+Pr2([1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]); 
+Pr2([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+                        -Float(infinity)               #вывод
+                                         -39
+                   2.93873587705571877 10              #вывод
