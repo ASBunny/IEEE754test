@@ -1,0 +1,149 @@
+#include <iostream>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <bitset>
+#include <fstream>
+#include <cstdlib>
+#include <string>
+using namespace std;
+//Функция записи числа в бинарный файл inBin(ваше число, "называние файла")
+void inBin(float a, string s) {
+	ofstream out(s, ios::binary); 
+	out.write((char*)&a, sizeof(a)); 
+	out.close(); // закрываем поток(чтобы небыло мусора и всё незабагалось)
+}
+//Функция записи числа в бинарный файл inBin(ваше число, "называние файла")
+void inBin(int a, string s) {
+	ofstream out(s, ios::binary);
+	out.write((char*)&a, sizeof(a)); 
+	out.close(); // закрываем поток(чтобы небыло мусора и всё незабагалось)
+}
+//Функция чтения  бинарного файла с выводом на консоль числа в битовом представлении outBin("название файла")
+string outBin(string s) {
+	ifstream ifs(s, ios::binary);
+	ostringstream oss;  //создаём вспомогательный объект класса ostringstream для преобразования данных из потока в строковый вид
+	string str, str1;
+	unsigned char n; //переменная для посимвольного чтения(присваивается каждый новый символ в цикле)
+	str1 = "";
+	while (true)
+	{
+		ifs.read((char*)&n, 1);//посимвольно считываем поток  (1 байт = 8 бит = 1символ)
+		if (ifs.eof())   
+			break;
+		oss << bitset<8>(n);  //извлекаем первый байт, тоесть первые 8 бит - с помощью контейнера bitset для хранения битов
+		str = oss.str();  //преобразуем в строковый вид наши биты  с помощью метода str()
+		str1 = str + str1; //строим последовательность битов в строку(конкатенация строк)
+		oss.str(""); //обнуляем наш потоковый объект для записи следующих 8 бит
+	}
+	ifs.close();
+	return str1;
+}
+//простая функция чтения из файла с простым присвоением к переменной a;
+void read(string s) {
+	float a;										
+	ifstream ifs(s, ios::binary);
+	while (!ifs.eof())
+	{
+		ifs.read((char*)&a, sizeof(a));
+	}
+	cout << a;
+	ifs.close();
+}
+//функция перевода битовой строки в число согласно стандарту IEEE 754
+void bitToNumber(string str) {
+	int b[8];
+	float d;
+	int E = 0;
+	int unsigned M = 0;
+	long step[23];
+	float null = 0.0;
+	typedef float fp32;
+	fp32 p_inf;
+	step[0] = 1;
+	step[1] = 2;
+	for (int i = 2; i < 23; i++) {//массив степеней двойки
+		step[i] = step[i - 1] * 2;
+	}
+	for (int i = 1; i < 9; i++) {
+		E += ((str[i] - '0') * step[8 - i]);//поиск экспоненты
+	}
+	for (int i = 9; i < 32; i++) {
+		M += ((str[i] - '0') * step[31 - i]);// поиск мантиссы
+	} 
+	if (E == 255) {//построение чисел согласно правилу IEEE 754
+		if ((M / pow(2, 23)) == 0) {
+			if ((str[0] - '0') == 0) {
+				cout << 1.0 / null;
+			}
+			else cout << -1.0 / null;
+		}
+		else if ((str[0] - '0') == 0) {
+			cout << -(1.0 / null) + (1.0 / null) << " - тихий NaN";
+		}
+		else cout << (1.0 / null) / (1.0 / null) << " - тихий NaN";
+	}
+	else if (E == 0) {
+		cout << pow(-1, (str[0] - '0')) * pow(2, E - 126) * M / pow(2, 23) << " -> это субнормальное число";
+	}
+	else
+		cout << pow(-1, (str[0] - '0')) * pow(2, E - 127) * (1 + M / pow(2, 23)) << endl;
+}
+//функция перевода числа в битовую строку согласно стандарту IEEE 754
+void numberToBit(float d) {
+	inBin(d, "out.dat"); 
+	string str = outBin("out.dat");
+	cout << str[0];
+	for (int i = 1; i < 9; i++) {
+		cout << str[i];
+	}
+	for (int i = 9; i < 32; i++) {
+		cout << str[i];
+	}
+	cout << endl;
+}
+// функция для получения числа программными возможностями (проверяем придерживается ли язык С++ стандарту IEEE 754
+void StrToInt(string str) {
+	int a = 0;
+	a = stoi(str, 0, 2);
+	inBin(a, "out123.dat");
+	read("out123.dat");
+}
+// функция для получения числа программными возможностями (проверяем придерживается ли язык С++ стандарту IEEE 754
+void StrToInt(float d) {
+	inBin(d, "out123.dat");
+	read("out123.dat");
+}
+void main(){
+	setlocale(LC_ALL, "rus");
+	float d;
+	int in = 0;
+	string str;
+	cout << "1 - число. 2-Битовая строка. " << endl;
+	cin >> in;
+	switch (in) {
+	case 1:
+		cout << "Ввeдите вещественное число: ";
+		cin >> d;
+		cout << endl;
+		cout << "Число по стандарту IEEE 754: ";
+		numberToBit(d);
+		cout << endl;
+		cout << "Присвоение программными средствами: ";
+		StrToInt(d);
+		cout << endl;
+		break;
+	case 2:
+		cout << "Введите битовую строку" << endl;
+		cin >> str;
+			cout << "Число по стандарту IEEE 754: ";
+			bitToNumber(str);
+			cout << endl;
+			cout << "Присвоение программными средствами: ";
+			StrToInt(str);
+			cout << endl;
+			break;
+	default:
+		break;
+	}
+}
